@@ -366,16 +366,7 @@
                                         <div style="position: relative; overflow: hidden">
                                             <div style="width: 100%; padding-bottom: 83.3333%"></div>
                                             <picture>
-                                                <source
-                                                    srcset="
-                              https://images.unsplash.com/photo-1634136906717-6421833e1b7a?ixlib=js-2.3.2&amp;crop=entropy&amp;cs=tinysrgb&amp;fit=crop&amp;fm=jpg&amp;ixid=MnwyMjcwN3wwfDF8c2VhcmNofDU4fHxtYW5uJTIwaGVtZHxlbnwwfHx8fDE2NzM0NjUwMjk&amp;ixlib=rb-4.0.3&amp;q=80&amp;w=1080&amp;auto=format%2Ccompress&amp;ar=1.2&amp;dpr=1 1x,
-                              https://images.unsplash.com/photo-1634136906717-6421833e1b7a?ixlib=js-2.3.2&amp;crop=entropy&amp;cs=tinysrgb&amp;fit=crop&amp;fm=jpg&amp;ixid=MnwyMjcwN3wwfDF8c2VhcmNofDU4fHxtYW5uJTIwaGVtZHxlbnwwfHx8fDE2NzM0NjUwMjk&amp;ixlib=rb-4.0.3&amp;q=80&amp;w=1080&amp;auto=format%2Ccompress&amp;ar=1.2&amp;dpr=2 2x,
-                              https://images.unsplash.com/photo-1634136906717-6421833e1b7a?ixlib=js-2.3.2&amp;crop=entropy&amp;cs=tinysrgb&amp;fit=crop&amp;fm=jpg&amp;ixid=MnwyMjcwN3wwfDF8c2VhcmNofDU4fHxtYW5uJTIwaGVtZHxlbnwwfHx8fDE2NzM0NjUwMjk&amp;ixlib=rb-4.0.3&amp;q=80&amp;w=1080&amp;auto=format%2Ccompress&amp;ar=1.2&amp;dpr=3 3x,
-                              https://images.unsplash.com/photo-1634136906717-6421833e1b7a?ixlib=js-2.3.2&amp;crop=entropy&amp;cs=tinysrgb&amp;fit=crop&amp;fm=jpg&amp;ixid=MnwyMjcwN3wwfDF8c2VhcmNofDU4fHxtYW5uJTIwaGVtZHxlbnwwfHx8fDE2NzM0NjUwMjk&amp;ixlib=rb-4.0.3&amp;q=80&amp;w=1080&amp;auto=format%2Ccompress&amp;ar=1.2&amp;dpr=4 4x,
-                              https://images.unsplash.com/photo-1634136906717-6421833e1b7a?ixlib=js-2.3.2&amp;crop=entropy&amp;cs=tinysrgb&amp;fit=crop&amp;fm=jpg&amp;ixid=MnwyMjcwN3wwfDF8c2VhcmNofDU4fHxtYW5uJTIwaGVtZHxlbnwwfHx8fDE2NzM0NjUwMjk&amp;ixlib=rb-4.0.3&amp;q=80&amp;w=1080&amp;auto=format%2Ccompress&amp;ar=1.2&amp;dpr=5 5x
-                            "
-                                                    sizes="(max-width: 927px) 375px, 608px" />
-                                                <img src="{{ asset('storage') . '/' . str_replace('\\', '/', setting('site.Photo_of_the_expert')) }} "
+                                                    <img src="{{ asset('storage') . '/' . str_replace('\\', '/', setting('site.Photo_of_the_expert')) }} "
                                                     alt="" class="main svelte-k8l55j cached"
                                                     style="--duration: 200ms" />
                                             </picture>
