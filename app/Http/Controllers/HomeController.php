@@ -49,7 +49,7 @@ class HomeController extends Controller
 
             $url_pdf = $url_pdf[0]->download_link;
         }
-        $url_pdf = 'storage/' . $pdf;
+        $url_pdf = 'storage/' . $url_pdf;
         return $this->file->show_pdf($url_pdf);
     }
 }
