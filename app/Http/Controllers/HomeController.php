@@ -37,6 +37,18 @@ class HomeController extends Controller
 
     public function show_pdf($pdf)
     {
+        if($pdf == 1)
+        {
+            $url_pdf = json_decode(setting('pdf.file_pdf_home', 'download_link'));
+
+            $url_pdf = $url_pdf[0]->download_link;
+        }
+        else
+        {
+            $url_pdf = json_decode(setting('pdf.file_pdf_home_2', 'download_link'));
+
+            $url_pdf = $url_pdf[0]->download_link;
+        }
         $url_pdf = 'storage/' . $pdf;
         return $this->file->show_pdf($url_pdf);
     }

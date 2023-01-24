@@ -81,7 +81,7 @@
                         ?>
                         <a target="_blank"
                             class="py-4 px-6 rounded-md mx-auto max-w-md block cursor-pointer border-none w-full box-border button transition jittery text-center transform active:scale-90 svelte-k9qwtc"
-                            href="{{ Route('show_pdf',['pdf'=>$url_pdf]) }}"
+                            href="{{ Route('show_pdf',['pdf'=>1]) }}"
                             style="
                   --buttonColor: #f5f5f5;
                   --buttonBgColor: #1ba232;
@@ -114,13 +114,13 @@
                             $url_pdf = "null";
                         }
                         else {
-                            $url_pdf = str_replace('\\', '%5C',$url_pdf[0]->download_link);
+                            $url_pdf = str_replace('\\', '',$url_pdf[0]->download_link);
                         }
                         
                         ?>
                         <a target="_blank"
                             class="py-4 px-6 rounded-md mx-auto max-w-md block cursor-pointer border-none w-full box-border button transition jittery text-center transform active:scale-90 svelte-k9qwtc"
-                            href="{{ Route('show_pdf',['pdf'=>$url_pdf]) }}"
+                            href="{{ Route('show_pdf',['pdf'=>2]) }}"
                             style="
                   --buttonColor: #f5f5f5;
                   --buttonBgColor: #1ba232;
