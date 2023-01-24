@@ -77,7 +77,7 @@
                     <div style="">
                         <?php
                         $url_pdf = json_decode(setting('pdf.file_pdf_home', 'download_link'));
-                        $url_pdf =  $url_pdf[0]->download_link;
+                        $url_pdf =  str_replace('%5C', '\\',$url_pdf[0]->download_link);
                         ?>
                         <a target="_blank"
                             class="py-4 px-6 rounded-md mx-auto max-w-md block cursor-pointer border-none w-full box-border button transition jittery text-center transform active:scale-90 svelte-k9qwtc"
@@ -114,7 +114,7 @@
                             $url_pdf = "null";
                         }
                         else {
-                            $url_pdf = $url_pdf[0]->download_link;
+                            $url_pdf = str_replace('%5C', '\\',$url_pdf[0]->download_link);
                         }
                         
                         ?>
