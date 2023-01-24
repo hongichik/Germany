@@ -26,7 +26,7 @@ class HomeController extends Controller
     {
         $question = Question::all();
         $Service = Service::all();
-        $table = Table::get();
+        $table = Table::orderBy('position', 'asc')->get();
         return view('welcome',
         [
             'questions' =>$question,
