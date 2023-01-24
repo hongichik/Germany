@@ -21,13 +21,12 @@
     @yield('meta_content')
 
     <meta name="twitter:creator" content="{{ env('APP_URL') }}" />
-    <link rel="shortcut icon" href="{{ asset('asset/image/icon/favicon32.png') }}" type="image/png">
-    <link href="{{ asset('asset/image/icon/favicon16.png') }}" rel="icon" sizes="16x16" type="image/png">
-    <link href="{{ asset('asset/image/icon/favicon32.png') }}" rel="icon" sizes="32x32" type="image/png">
-    <link href="{{ asset('asset/image/icon/favicon96.png') }}" rel="icon" sizes="96x96" type="image/png">
-    <link href="{{ asset('asset/image/icon/favicon128.png') }}" rel="icon" sizes="128x128" type="image/png">
+    <link rel="shortcut icon" href="{{ asset('storage') . '/' . str_replace('\\', '/', setting('seo-page.favicon_32')) }}" type="image/png">
+    <link href="{{ asset('storage') . '/' . str_replace('\\', '/', setting('seo-page.favicon_16')) }}" rel="icon" sizes="16x16" type="image/png">
+    <link href="{{ asset('storage') . '/' . str_replace('\\', '/', setting('seo-page.favicon_32')) }}" rel="icon" sizes="32x32" type="image/png">
+    <link href="{{ asset('storage') . '/' . str_replace('\\', '/', setting('seo-page.favicon_96')) }}" rel="icon" sizes="96x96" type="image/png">
+    <link href="{{ asset('storage') . '/' . str_replace('\\', '/', setting('seo-page.favicon_128')) }}" rel="icon" sizes="128x128" type="image/png">
 
-    <link href="{{ asset('asset/image/icon/favicon.ico') }}" type="image/x-icon" rel="shortcut icon" />
 
     <!--start bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"

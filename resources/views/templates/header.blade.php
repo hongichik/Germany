@@ -8,10 +8,10 @@
           alt="Logo"
           class="inline-block clickable h-10"
           src="
-          @if(setting('site.image_header') == null)
+          @if(setting('header.image_header') == null)
             {{ asset('asset/image/icon/icon_header.avif') }}
           @else
-            {{  asset('storage').'/'.str_replace('\\', '/',setting('site.image_header')) }}
+            {{  asset('storage').'/'.str_replace('\\', '/',setting('header.image_header')) }}
           @endif  
             "
           style="height: 40px"

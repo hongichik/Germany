@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Table;
+use App\Service;
 use App\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -24,18 +25,19 @@ class HomeController extends Controller
     public function index()
     {
         $question = Question::all();
+        $Service = Service::all();
         $table = Table::orderBy('id', 'DESC')->get();
         return view('welcome',
         [
             'questions' =>$question,
-            'tables'    =>$table
+            'tables'    =>$table,
+            'services'  =>$Service
         ]);
     }
 
-    public function show_pdf()
+    public function show_pdf($pdf)
     {
-        $url_pdf = json_decode(setting('site.file_pdf_home'));
-        $url_pdf = 'storage/' . $url_pdf[0]->download_link;
+        $url_pdf = 'storage/' . $pdf;
         return $this->file->show_pdf($url_pdf);
     }
 }

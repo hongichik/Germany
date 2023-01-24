@@ -16,7 +16,7 @@ use App\Http\Controllers\HomeController;
 */
 
 Route::get('/', [HomeController::class,'index'])->name('home');
-Route::get('/home/pdf', [HomeController::class, 'show_pdf'])->name('show_pdf');
+Route::get('/home/pdf/{pdf}', [HomeController::class, 'show_pdf'])->name('show_pdf');
 
 Route::post('/demo', function(Request $request){
     dd($request->files);   

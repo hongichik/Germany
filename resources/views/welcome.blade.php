@@ -1,19 +1,19 @@
 @extends('templates.default')
 @section('meta_content')
-    <meta name="description" content="{{ setting('site.description') }}" />
-    <meta name="keywords" content="{{ setting('site.keyword') }}" />
+    <meta name="description" content="{{ setting('seo-page.description') }}" />
+    <meta name="keywords" content="{{ setting('seo-page.keyword') }}" />
 
-    <meta property="og:title" content="{{ setting('site.title') }}" />
-    <meta property="og:description" content="{{ setting('site.description') }} " />
+    <meta property="og:title" content="{{ setting('seo-page.title') }}" />
+    <meta property="og:description" content="{{ setting('seo-page.description') }} " />
     <meta property="og:url" content="{{ env('APP_URL') . $_SERVER['REQUEST_URI'] }}" />
-    <meta property="og:home_name" content="{{ setting('site.title') }}" />
-    <meta name="twitter:title" content="{{ setting('site.title') }}" />
-    <meta name="twitter:description" content="{{ setting('site.description') }} " />
-    <meta name="title" content="{{ setting('site.title') }}" />
-    <meta name="thumbnail" content="{{ asset('storage') . '/' . str_replace('\\', '/', setting('home.logo_Menu')) }}" />
+    <meta property="og:home_name" content="{{ setting('seo-page.title') }}" />
+    <meta name="twitter:title" content="{{ setting('seo-page.title') }}" />
+    <meta name="twitter:description" content="{{ setting('seo-page.description') }} " />
+    <meta name="title" content="{{ setting('seo-page.title') }}" />
+    <meta name="thumbnail" content="{{ asset('storage') . '/' . str_replace('\\', '/', setting('seo-page.image_share')) }}" />
 
 
-    <title>{{ setting('site.title') }}</title>
+    <title>{{ setting('seo-page.title') }}</title>
 @endsection
 @section('h_extension')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
@@ -52,7 +52,7 @@
                         <div class="wrapper break-words text-center svelte-tb17ze responsive"
                             style="--textColor: #ffffff; --linkColor: #ffffff">
                             <h2>
-                                <strong>Echter Schweizer Kredit mit nur 1 Klick!</strong>
+                                <strong>{{ setting('site.h1') }}</strong>
                             </h2>
                         </div>
                     </div>
@@ -64,8 +64,8 @@
                     <div style="">
                         <div class="wrapper break-words text-center svelte-tb17ze responsive"
                             style="--textColor: #ffffff; --linkColor: #ffffff">
-                            <p>Mit diesem Schweizer Kredit haben Verbraucher die besten Erfolgs-Chancen! </p>
-                            <p><a href="">(mehr zu unseren Studienzahlen..)</a></p>
+                            <p>{{ setting('site.description_h1') }}</p>
+                            <p><a href="{{ setting('site.url_see_more') }}">{{ setting('site.lb_see_more') }}</a></p>
 
                         </div>
                     </div>
@@ -76,26 +76,63 @@
                 <div class="mx-auto max-w-md sm:max-w-xl w-full">
                     <div style="">
                         <?php
-                        $url_pdf = json_decode(setting('site.file_pdf_home', 'download_link'));
-                        $url_pdf = 'storage/' . $url_pdf[0]->download_link;
+                        $url_pdf = json_decode(setting('pdf.file_pdf_home', 'download_link'));
+                        $url_pdf =  $url_pdf[0]->download_link;
                         ?>
                         <a target="_blank"
                             class="py-4 px-6 rounded-md mx-auto max-w-md block cursor-pointer border-none w-full box-border button transition jittery text-center transform active:scale-90 svelte-k9qwtc"
-                            href="{{ Route('show_pdf') }}"
+                            href="{{ Route('show_pdf',['pdf'=>$url_pdf]) }}"
                             style="
                   --buttonColor: #f5f5f5;
                   --buttonBgColor: #1ba232;
                   --buttonBgColorDark: hsla(130, 71%, 27%, 1);
                 ">
                             <div class="w-full border-box"
-                                style="
-                    background: center center / cover no-repeat transparent;
-                  ">
+                                style="background: center center / cover no-repeat transparent;">
                                 <div class="mx-auto max-w-md sm:max-w-xl w-full md:max-w-3xl lg:max-w-4xl">
                                     <div style="">
                                         <div class="wrapper break-words text-center svelte-tb17ze"
                                             style="--textColor: #f5f5f5; --linkColor: #0076ff">
-                                            <h4>Kreditgesuch Antrag (PDF)</h4>
+                                            <h4>{{ setting('pdf.lb_btn_1') }}</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <p class=" text-center" style="color: white; font-size: 19px">-- oder --</p>
+            <div class="w-full border-box pt-8 pl-6 pr-6 pb-8"
+                style="background: center center / cover no-repeat transparent">
+                <div class="mx-auto max-w-md sm:max-w-xl w-full">
+                    <div style="">
+                        <?php
+                        $url_pdf = json_decode(setting('pdf.file_pdf_home_2', 'download_link'));
+                        if($url_pdf == null)
+                        {
+                            $url_pdf = "null";
+                        }
+                        else {
+                            $url_pdf = $url_pdf[0]->download_link;
+                        }
+                        
+                        ?>
+                        <a target="_blank"
+                            class="py-4 px-6 rounded-md mx-auto max-w-md block cursor-pointer border-none w-full box-border button transition jittery text-center transform active:scale-90 svelte-k9qwtc"
+                            href="{{ Route('show_pdf',['pdf'=>$url_pdf]) }}"
+                            style="
+                  --buttonColor: #f5f5f5;
+                  --buttonBgColor: #1ba232;
+                  --buttonBgColorDark: hsla(130, 71%, 27%, 1);
+                ">
+                            <div class="w-full border-box"
+                                style="background: center center / cover no-repeat transparent;">
+                                <div class="mx-auto max-w-md sm:max-w-xl w-full md:max-w-3xl lg:max-w-4xl">
+                                    <div style="">
+                                        <div class="wrapper break-words text-center svelte-tb17ze"
+                                            style="--textColor: #f5f5f5; --linkColor: #0076ff">
+                                            <h4>{{ setting('pdf.lb_btn_2') }}</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -138,7 +175,7 @@
                             <h4><br /></h4>
                             <h4><br /></h4>
                             <h4>
-                                +++2.405 genehmigte Anträge (Stand 01/23), täglich werden es mehr+++
+                                {{ setting('site.title_2') }}
                             </h4>
                         </div>
                     </div>
@@ -147,150 +184,38 @@
             <div class="w-full border-box pt-6 pl-6 pr-6 pb-6"
                 style="background: center center / cover no-repeat transparent">
                 <div class="mx-auto max-w-md sm:max-w-xl w-full md:max-w-3xl lg:max-w-4xl">
-                    <div style="">
-                        <div class="grid text-left gap-6 grid-cols-1 md:grid-cols-2">
-                            <div class="flex box-border w-full align-top items-start">
-                                <div class="flex-shrink-0 flex items-center justify-center svelte-10vu51z"
-                                    style="width: 48px; height: 48px">
-                                    <em-emoji id="white_check_mark" size="32px"><span class="emoji-mart-emoji"
-                                            data-emoji-set="native"><span
-                                                style="
-                            font-size: 32px;
-                            font-family: EmojiMart, 'Segoe UI Emoji',
-                              'Segoe UI Symbol', 'Segoe UI', 'Apple Color Emoji',
-                              'Twemoji Mozilla', 'Noto Color Emoji',
-                              'Android Emoji';
-                          ">✅</span></span>
-                                    </em-emoji>
-                                </div>
-                                <div class="text flex items-center flex-grow break-words ml-6 min-w-0 svelte-10vu51z"
-                                    style="min-height: 48px; font-size: 16px">
-                                    <div class="w-full border-box"
-                                        style="
-                        background: center center / cover no-repeat transparent;
-                      ">
-                                        <div class="mx-auto max-w-md sm:max-w-xl w-full md:max-w-3xl lg:max-w-4xl">
-                                            <div style="">
-                                                <div class="wrapper break-words text-left svelte-tb17ze inheritSize responsive"
-                                                    style="--textColor: #ffffff; --linkColor: #0076ff">
-                                                    <h4>
+                    <div style="" class="d-flex flex-wrap">
+                        @foreach ($services as $service)
+                            <div class="grid text-left gap-6 mb-4 col-12 col-md-6">
+                                <div class="flex box-border w-full align-top items-start ">
+                                    <div class="flex-shrink-0 flex items-center justify-center svelte-10vu51z"
+                                        style="width: 48px; height: 48px">
+                                        <em-emoji id="white_check_mark" size="32px"><span class="emoji-mart-emoji"
+                                                data-emoji-set="native"><span
+                                                    style="font-size: 32px;font-family: EmojiMart, 'Segoe UI Emoji','Segoe UI Symbol', 'Segoe UI', 'Apple Color Emoji','Twemoji Mozilla', 'Noto Color Emoji','Android Emoji';">✅</span></span>
+                                        </em-emoji>
+                                    </div>
+                                    <div class="text flex items-center flex-grow break-words ml-6 min-w-0 svelte-10vu51z"
+                                        style="min-height: 48px; font-size: 16px">
+                                        <div class="w-full border-box"
+                                            style="background: center center / cover no-repeat transparent;">
+                                            <div class="mx-auto max-w-md sm:max-w-xl w-full md:max-w-3xl lg:max-w-4xl">
+                                                <div style="">
+                                                    <div class="wrapper break-words text-left svelte-tb17ze inheritSize responsive"
+                                                        style="--textColor: #ffffff; --linkColor: #0076ff">
+                                                        <h4>
 
-                                                        <strong>Nur als PDF beantragbar</strong> (Vorsicht
-                                                        vor unseriösen Vergleichsportalen, die
-                                                        Kreditangebote nur nach ihrer Provision
-                                                        aussteuern! (mehr Infos)
-                                                    </h4>
+                                                            <strong>{{ $service->txt_bold }} </strong>{{ $service->txt_des  }}
+                                                        </h4>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="flex box-border w-full align-top items-start">
-                                <div class="flex-shrink-0 flex items-center justify-center svelte-10vu51z"
-                                    style="width: 48px; height: 48px">
-                                    <em-emoji id="white_check_mark" size="32px"><span class="emoji-mart-emoji"
-                                            data-emoji-set="native"><span
-                                                style="
-                            font-size: 32px;
-                            font-family: EmojiMart, 'Segoe UI Emoji',
-                              'Segoe UI Symbol', 'Segoe UI', 'Apple Color Emoji',
-                              'Twemoji Mozilla', 'Noto Color Emoji',
-                              'Android Emoji';
-                          ">✅</span></span>
-                                    </em-emoji>
-                                </div>
-                                <div class="text flex items-center flex-grow break-words ml-6 min-w-0 svelte-10vu51z"
-                                    style="min-height: 48px; font-size: 16px">
-                                    <div class="w-full border-box"
-                                        style="
-                        background: center center / cover no-repeat transparent;
-                      ">
-                                        <div class="mx-auto max-w-md sm:max-w-xl w-full md:max-w-3xl lg:max-w-4xl">
-                                            <div style="">
-                                                <div class="wrapper break-words text-left svelte-tb17ze inheritSize responsive"
-                                                    style="--textColor: #ffffff; --linkColor: #0076ff">
-                                                    <h4>
-                                                        <strong>Direkte Beantragung verspricht attraktive
-                                                            Zinsen²</strong>
-                                                    </h4>
-                                                    <h4>und eine schnelle Bearbeitung der Anfrage</h4>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex box-border w-full align-top items-start">
-                                <div class="flex-shrink-0 flex items-center justify-center svelte-10vu51z"
-                                    style="width: 48px; height: 48px">
-                                    <em-emoji id="white_check_mark" size="32px"><span class="emoji-mart-emoji"
-                                            data-emoji-set="native"><span
-                                                style="
-                            font-size: 32px;
-                            font-family: EmojiMart, 'Segoe UI Emoji',
-                              'Segoe UI Symbol', 'Segoe UI', 'Apple Color Emoji',
-                              'Twemoji Mozilla', 'Noto Color Emoji',
-                              'Android Emoji';
-                          ">✅</span></span>
-                                    </em-emoji>
-                                </div>
-                                <div class="text flex items-center flex-grow break-words ml-6 min-w-0 svelte-10vu51z"
-                                    style="min-height: 48px; font-size: 16px">
-                                    <div class="w-full border-box"
-                                        style="
-                        background: center center / cover no-repeat transparent;
-                      ">
-                                        <div class="mx-auto max-w-md sm:max-w-xl w-full md:max-w-3xl lg:max-w-4xl">
-                                            <div style="">
-                                                <div class="wrapper break-words text-left svelte-tb17ze inheritSize responsive"
-                                                    style="--textColor: #ffffff; --linkColor: #0076ff">
-                                                    <h4>
-                                                        <strong>Ca. 14 Tage.</strong> Vom Antrag bis zur
-                                                        Auszahlung
-                                                    </h4>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex box-border w-full align-top items-start">
-                                <div class="flex-shrink-0 flex items-center justify-center svelte-10vu51z"
-                                    style="width: 48px; height: 48px">
-                                    <em-emoji id="white_check_mark" size="32px"><span class="emoji-mart-emoji"
-                                            data-emoji-set="native"><span
-                                                style="
-                            font-size: 32px;
-                            font-family: EmojiMart, 'Segoe UI Emoji',
-                              'Segoe UI Symbol', 'Segoe UI', 'Apple Color Emoji',
-                              'Twemoji Mozilla', 'Noto Color Emoji',
-                              'Android Emoji';
-                          ">✅</span></span>
-                                    </em-emoji>
-                                </div>
-                                <div class="text flex items-center flex-grow break-words ml-6 min-w-0 svelte-10vu51z"
-                                    style="min-height: 48px; font-size: 16px">
-                                    <div class="w-full border-box"
-                                        style="
-                        background: center center / cover no-repeat transparent;
-                      ">
-                                        <div class="mx-auto max-w-md sm:max-w-xl w-full md:max-w-3xl lg:max-w-4xl">
-                                            <div style="">
-                                                <div class="wrapper break-words text-left svelte-tb17ze inheritSize responsive"
-                                                    style="--textColor: #ffffff; --linkColor: #0076ff">
-                                                    <h4>
-                                                        <strong>Trotz negativer Schufa</strong>
-                                                        Finanzierungszusage auch schon tausendfach erteilt
-                                                        trotz Negativem Schufaeintrag!
-                                                    </h4>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
+
                     </div>
                 </div>
             </div>
@@ -298,7 +223,7 @@
                 style="background: center center / cover no-repeat transparent">
                 <div class="mx-auto max-w-md sm:max-w-xl w-full">
                     <div style="">
-                        <a href="{{ setting('site.link_online_Antrag') }}"
+                        <a href="{{ setting('site.url_btn_3') }}"
                             class="py-4 px-6 rounded-md mx-auto max-w-md block cursor-pointer border-none w-full box-border button transition text-center transform active:scale-90 svelte-k9qwtc"
                             type="button"
                             style="
@@ -315,7 +240,7 @@
                                         <div class="wrapper break-words text-center svelte-tb17ze"
                                             style="--textColor: #f5f5f5; --linkColor: #0076ff">
                                             <h4>
-                                                <strong>+++neu: Online Antrag+++ (ANCHOR)</strong>
+                                                <strong>{{ setting('site.lb_btn_3') }}</strong>
                                             </h4>
                                         </div>
                                     </div>
@@ -332,7 +257,7 @@
                         <div class="wrapper break-words text-center svelte-tb17ze responsive"
                             style="--textColor: #ffffff; --linkColor: #ffffff">
                             <h2>
-                                <strong>Unsere Experte Moritz betreut Verbraucher </strong>
+                                <strong>{{ setting('about.about_title') }} </strong>
                             </h2>
                         </div>
                     </div>
@@ -345,12 +270,7 @@
                         <div class="wrapper break-words text-center svelte-tb17ze responsive"
                             style="--textColor: #ffffff; --linkColor: #ffffff">
                             <h4>
-                                Dipl.- Oec. Moritz Schmidt ist seit Jahren in der
-                                Verbraucherschutzberatung aktiv und hilft ehrenamtlich
-                                vorallem in schwierigen Fällen bei der Kreditfindung. Mit der
-                                deutschen Kreditberatung stellen wir nun dieses notwendige
-                                Insider-Wissen fernab von gängigen Vergleichsportalen zur
-                                Verfügung. Um auch Sie seriös und ehrlich zu beraten.
+                                {{ setting('about.des_about') }}
                             </h4>
                         </div>
                     </div>
@@ -366,7 +286,7 @@
                                         <div style="position: relative; overflow: hidden">
                                             <div style="width: 100%; padding-bottom: 83.3333%"></div>
                                             <picture>
-                                                    <img src="{{ asset('storage') . '/' . str_replace('\\', '/', setting('site.Photo_of_the_expert')) }} "
+                                                    <img src="{{ asset('storage') . '/' . str_replace('\\', '/', setting('about.Photo_of_the_expert')) }} "
                                                     alt="" class="main svelte-k8l55j cached"
                                                     style="--duration: 200ms" />
                                             </picture>
@@ -385,8 +305,7 @@
                         <div class="wrapper break-words text-left svelte-tb17ze responsive"
                             style="--textColor: #ffffff; --linkColor: #ffffff">
                             <h3>
-                                <strong>Das sagen echte Personen, denen wir zum positiven Antrag
-                                    helfen konnten.</strong>
+                                <strong>{{ setting('about.about_title_2') }}</strong>
                             </h3>
                         </div>
                     </div>
@@ -399,19 +318,7 @@
                         <div class="wrapper break-words text-left svelte-tb17ze responsive"
                             style="--textColor: #ffffff; --linkColor: #ffffff">
                             <h4>
-                                Ein sog. Schweizer Kredit ist ein Kredit welcher
-                                Schufa-neutral ist, d. h. es erfolgt keine Kommunikation mit
-                                der Schufa.
-                            </h4>
-                            <h4><br /></h4>
-                            <h4>
-                                Auch unser Partner Bon-Kredit verhilft Ihnen zu Ihrem
-                                gewünschten Darlehen. Auch wenn andere schon abgesagt haben.
-                                Mehr als 45 Jahre Erfahrung und zahlreiche Kontakte zu Banken
-                                im In- und Ausland machen das möglich. Kredite ab 2,79%¹ –
-                                garantiert ohne Vorkosten. Zusätzlich vermittelt Bon-Kredit
-                                auch Darlehen der SIGMA Kreditbank. Sie können Ihren Kredit
-                                also auch direkt online beantragen!
+                                {!! setting('about.des_about_2') !!}
                             </h4>
                         </div>
                     </div>
@@ -517,7 +424,7 @@
                         <div class="wrapper break-words text-center svelte-tb17ze responsive"
                             style="--textColor: #ffffff; --linkColor: #ffffff">
                             <h4>
-                                <strong><ins>Hinweis: Wir sind kein Kreditvermittler</ins></strong>
+                                <strong><ins>{{ setting('about.note_title') }}</ins></strong>
                             </h4>
                         </div>
                     </div>
@@ -530,12 +437,8 @@
                         <div class="wrapper break-words text-left svelte-tb17ze responsive"
                             style="--textColor: #ffffff; --linkColor: #ffffff">
                             <h4>
-                                ² SIGMA Kreditbank Konditionen: Sollzinssatz jährlich 10,19 %
-                                bei EUR 3.500,00 sowie 10,21% bei EUR 5.000,00 und 10,20% EUR
-                                7.500,00. Effektiver Jahreszins 10,68 % bei EUR 3.500,00 sowie
-                                10,70% bei EUR 5.000,00 und 10,69% EUR 7.500,00.
+                                {{ setting('about.des_about_3') }}
                             </h4>
-                            <h4><br /></h4>
                             <h4><br /></h4>
                         </div>
                     </div>
@@ -548,9 +451,12 @@
                         <div class="wrapper break-words text-left svelte-tb17ze responsive"
                             style="--textColor: #ffffff; --linkColor: #ffffff">
                             <h3>
-                                Block where the this calculator should be inserted:
-                                https://www.maxda.de/sigma-schufafrei/?a_aid=8882&amp;a_bid=4bdf88bd
+                                <strong>{{ setting('about.about_title_3') }}</strong>
                             </h3>
+                            <br>
+                            <h4>
+                                {{ setting('about.des_about_4') }}
+                            </h4>
                             <h3><br /></h3>
                             <h3><br /></h3>
                             <h3><br /></h3>
@@ -579,60 +485,7 @@
                             <h3><br /></h3>
                             <h3><br /></h3>
                             <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3>Ende</h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
-                            <h3><br /></h3>
+
                         </div>
                     </div>
                 </div>
