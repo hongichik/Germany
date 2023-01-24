@@ -114,7 +114,7 @@
                             $url_pdf = "null";
                         }
                         else {
-                            $url_pdf = str_replace('\/', '%5C',$url_pdf[0]->download_link);
+                            $url_pdf = str_replace('\\', '%5C',$url_pdf[0]->download_link);
                         }
                         
                         ?>
