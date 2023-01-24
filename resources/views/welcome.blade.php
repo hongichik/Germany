@@ -392,15 +392,21 @@
                             style="--textColor: #ffffff; --linkColor: #ffffff">
                             {{-- <h3>Here please insert a HTML Table.</h3> --}}
                             <table>
-
                                 @foreach ($tables as $index => $table)
-                                    @if ($index == 0)
+                                    @if ($table->id == 9999)
                                         <tr>
                                             <th>{{ $table->column_one }}</th>
                                             <th>{{ $table->column_two }}</th>
                                             <th>{{ $table->column_three }}</th>
                                             <th>{{ $table->column_four }}</th>
                                         </tr>
+                                    @else
+
+                                    @endif
+                                @endforeach
+                                @foreach ($tables as $index => $table)
+                                    @if ($table->id == 9999)
+
                                     @else
                                         <tr>
                                             <td>{{ $table->column_one }}</td>
