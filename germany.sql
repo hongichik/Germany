@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th1 24, 2023 lúc 09:08 AM
--- Phiên bản máy phục vụ: 10.4.25-MariaDB
--- Phiên bản PHP: 8.1.12
+-- Máy chủ: localhost
+-- Thời gian đã tạo: Th1 26, 2023 lúc 12:11 AM
+-- Phiên bản máy phục vụ: 5.7.40-log
+-- Phiên bản PHP: 8.0.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `germany`
+-- Cơ sở dữ liệu: `sql_germany_com`
 --
 
 -- --------------------------------------------------------
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `categories` (
   `id` int(10) UNSIGNED NOT NULL,
   `parent_id` int(10) UNSIGNED DEFAULT NULL,
-  `order` int(11) NOT NULL DEFAULT 1,
+  `order` int(11) NOT NULL DEFAULT '1',
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -57,14 +57,14 @@ CREATE TABLE `data_rows` (
   `field` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `display_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `required` tinyint(1) NOT NULL DEFAULT 0,
-  `browse` tinyint(1) NOT NULL DEFAULT 1,
-  `read` tinyint(1) NOT NULL DEFAULT 1,
-  `edit` tinyint(1) NOT NULL DEFAULT 1,
-  `add` tinyint(1) NOT NULL DEFAULT 1,
-  `delete` tinyint(1) NOT NULL DEFAULT 1,
-  `details` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `order` int(11) NOT NULL DEFAULT 1
+  `required` tinyint(1) NOT NULL DEFAULT '0',
+  `browse` tinyint(1) NOT NULL DEFAULT '1',
+  `read` tinyint(1) NOT NULL DEFAULT '1',
+  `edit` tinyint(1) NOT NULL DEFAULT '1',
+  `add` tinyint(1) NOT NULL DEFAULT '1',
+  `delete` tinyint(1) NOT NULL DEFAULT '1',
+  `details` text COLLATE utf8mb4_unicode_ci,
+  `order` int(11) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -143,13 +143,14 @@ INSERT INTO `data_rows` (`id`, `data_type_id`, `field`, `type`, `display_name`, 
 (69, 10, 'column_two', 'text', 'Column Two', 0, 1, 1, 1, 1, 1, '{}', 3),
 (70, 10, 'column_three', 'text', 'Column Three', 0, 1, 1, 1, 1, 1, '{}', 4),
 (71, 10, 'column_four', 'text', 'Column Four', 0, 1, 1, 1, 1, 1, '{}', 5),
-(72, 10, 'created_at', 'timestamp', 'Created At', 0, 0, 0, 0, 0, 0, '{}', 6),
-(73, 10, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, '{}', 7),
+(72, 10, 'created_at', 'timestamp', 'Created At', 0, 0, 0, 0, 0, 0, '{}', 7),
+(73, 10, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, '{}', 8),
 (79, 12, 'id', 'text', 'Id', 1, 0, 0, 0, 0, 0, '{}', 1),
 (80, 12, 'txt_bold', 'text', 'text bold', 0, 1, 1, 1, 1, 1, '{}', 2),
 (81, 12, 'txt_des', 'text', 'service description', 0, 1, 1, 1, 1, 1, '{}', 3),
 (82, 12, 'created_at', 'timestamp', 'Created At', 0, 0, 0, 0, 0, 0, '{}', 4),
-(83, 12, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, '{}', 5);
+(83, 12, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, '{}', 5),
+(84, 10, 'position', 'number', 'Position', 0, 1, 1, 1, 1, 1, '{}', 6);
 
 -- --------------------------------------------------------
 
@@ -168,9 +169,9 @@ CREATE TABLE `data_types` (
   `policy_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `controller` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `generate_permissions` tinyint(1) NOT NULL DEFAULT 0,
-  `server_side` tinyint(4) NOT NULL DEFAULT 0,
-  `details` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `generate_permissions` tinyint(1) NOT NULL DEFAULT '0',
+  `server_side` tinyint(4) NOT NULL DEFAULT '0',
+  `details` text COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -188,7 +189,7 @@ INSERT INTO `data_types` (`id`, `name`, `slug`, `display_name_singular`, `displa
 (6, 'pages', 'pages', 'Page', 'Pages', 'voyager-file-text', 'TCG\\Voyager\\Models\\Page', NULL, '', '', 1, 0, NULL, '2023-01-15 01:08:53', '2023-01-15 01:08:53'),
 (7, 'homes', 'homes', 'Home', 'Homes', 'voyager-home', 'App\\Home', NULL, NULL, NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2023-01-15 07:32:17', '2023-01-15 07:34:05'),
 (9, 'questions', 'questions', 'Question', 'Questions', 'voyager-question', 'App\\Question', NULL, NULL, NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2023-01-15 09:59:30', '2023-01-15 10:12:56'),
-(10, 'tables', 'tables', 'Table', 'Tables', NULL, 'App\\Table', NULL, NULL, NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null}', '2023-01-15 10:29:14', '2023-01-15 10:29:14'),
+(10, 'tables', 'tables', 'Table', 'Tables', NULL, 'App\\Table', NULL, NULL, NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2023-01-15 10:29:14', '2023-01-24 09:05:47'),
 (12, 'services', 'services', 'service description', 'service description', 'voyager-thumbs-up', 'App\\Service', NULL, NULL, NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2023-01-23 23:47:09', '2023-01-23 23:49:04');
 
 -- --------------------------------------------------------
@@ -204,7 +205,7 @@ CREATE TABLE `failed_jobs` (
   `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -219,7 +220,7 @@ CREATE TABLE `homes` (
   `style` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `content` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `content` text COLLATE utf8mb4_unicode_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -261,7 +262,7 @@ CREATE TABLE `menu_items` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `route` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `parameters` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `parameters` text COLLATE utf8mb4_unicode_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -337,12 +338,12 @@ CREATE TABLE `pages` (
   `id` int(10) UNSIGNED NOT NULL,
   `author_id` int(11) NOT NULL,
   `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `excerpt` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `body` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `excerpt` text COLLATE utf8mb4_unicode_ci,
+  `body` text COLLATE utf8mb4_unicode_ci,
   `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `meta_description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `meta_keywords` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `meta_description` text COLLATE utf8mb4_unicode_ci,
+  `meta_keywords` text COLLATE utf8mb4_unicode_ci,
   `status` enum('ACTIVE','INACTIVE') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'INACTIVE',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -536,7 +537,7 @@ CREATE TABLE `personal_access_tokens` (
   `tokenable_id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `abilities` text COLLATE utf8mb4_unicode_ci,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `expires_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -555,14 +556,14 @@ CREATE TABLE `posts` (
   `category_id` int(11) DEFAULT NULL,
   `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `seo_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `excerpt` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `excerpt` text COLLATE utf8mb4_unicode_ci,
   `body` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `meta_description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `meta_keywords` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `meta_description` text COLLATE utf8mb4_unicode_ci,
+  `meta_keywords` text COLLATE utf8mb4_unicode_ci,
   `status` enum('PUBLISHED','DRAFT','PENDING') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'DRAFT',
-  `featured` tinyint(1) NOT NULL DEFAULT 0,
+  `featured` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -586,7 +587,7 @@ INSERT INTO `posts` (`id`, `author_id`, `category_id`, `title`, `seo_title`, `ex
 CREATE TABLE `questions` (
   `id` int(10) UNSIGNED NOT NULL,
   `question` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `answer` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `answer` text COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -596,12 +597,11 @@ CREATE TABLE `questions` (
 --
 
 INSERT INTO `questions` (`id`, `question`, `answer`, `created_at`, `updated_at`) VALUES
-(1, 'Was ist die deutsche Kreditberatung?', 'Wir sind überwiegend ehrenamtliche Mitarbeiter, die vorallem benachteiligte Verbraucher in schwierigen Situationen zu ihrem Kredit helfen. Wir selbst waren mal in der Lage, dringend eine Unterbrückung zu brauchen. Daraus entstand die Idee zur deutschen Kreditberatung.', '2023-01-15 10:00:45', '2023-01-15 10:00:45'),
-(2, 'Welche Voraussetzungen muss ich für einen Kredit erfüllen?', '<p>Die wesentlichen Voraussetzungen f&uuml;r den Kredit bei unserem Partner SIGMA Bank sind: - Antragsteller muss deutscher Bundesb&uuml;rger sein</p>\r\n<ul>\r\n<li>Zudem vollj&auml;hrig bzw. zwischen 18 und 58 Jahren alt</li>\r\n<li>&Uuml;ber ein nachhaltiges Einkommen von mindestens 1.110 Euro verf&uuml;gen&nbsp;</li>\r\n<li>Ein Besch&auml;ftigungsverh&auml;ltnis muss seit mindestens 12 Monaten bestehen</li>\r\n</ul>', '2023-01-15 10:04:57', '2023-01-15 10:13:32'),
-(3, 'Was sind die Vorteile des Sigma Kredits?', '<p><strong>Transparente Kreditangebote</strong></p>\r\n<p>Die SIGMA Kreditbank Ihnen drei klare Kreditvarianten. Die Konditionen sind klar verst&auml;ndlich und es gibt keine versteckten Kosten bei Ihrem Kredit.</p>\r\n<p>&nbsp;</p>\r\n<p><strong>Seri&ouml;ser Kredit ohne Schufa &ndash; ohne Vorkosten</strong></p>\r\n<p>Keine versteckten Kosten und Probleme f&uuml;r Sie bei der SIGMA Bank!</p>\r\n<p>&nbsp;</p>\r\n<p><strong>Kredit auch in schweren Zeiten</strong></p>\r\n<p>Die SIGMA Bank versteht Ihre individuelle Situation und erm&ouml;glicht Ihren Kunden daher auch in vielen F&auml;llen ein Darlehen, wenn andere schon abgelehnt haben! So wird Ihr Kredit ohne Schufa m&ouml;glich.</p>\r\n<p>&nbsp;</p>\r\n<p><strong>Bequem, sicher und schnell per Post und Email</strong></p>\r\n<p>&Uuml;berpr&uuml;fen Sie unser Angebot in aller Ruhe bei sich zuhause. Sie werden sehen: der SIGMA Kredit ist schnell, &uuml;bersichtlich und klar verst&auml;ndlich.</p>\r\n<p>&nbsp;</p>\r\n<p><strong>Schnelle und diskrete Abwicklung</strong></p>\r\n<p>Mit langj&auml;hriger Erfahrung als Kreditanbieter hat die SIGMA Bank ihre Arbeitsabl&auml;ufe so gut optimiert, dass die Kreditpr&uuml;fung extrem schnell abgeschlossen ist und Sie sofort per Email informiert werden &uuml;ber die n&auml;chsten Schritte. Dabei wird absolut diskret gehandelt. Weder die Schufa noch ihr Arbeitgeber erf&auml;hrt von dem Kredit.</p>\r\n<p>&nbsp;</p>\r\n<p>&nbsp;</p>\r\n<p>Ein weiterer Vorteil des SIGMA Kredits liegt darin, dass Sie sich die Kreditkonditionen ohne Zeitdruck anschauen k&ouml;nnen. Sie werden von niemandem beeinflusst und k&ouml;nnen frei entscheiden.</p>\r\n<p>&nbsp;</p>\r\n<p>Die SIGMA Kreditbank bietet Ihnen dar&uuml;ber hinaus sehr transparente Kreditangebote, eine schnelle und diskrete Abwicklung, als auch eine gute Beratung bei hoher Kundenzufriedenheit.</p>\r\n<p>&nbsp;</p>\r\n<p>Zus&auml;tzlich ist eine vorzeitige Kreditr&uuml;ckzahlung ohne zus&auml;tzliche Kosten m&ouml;glich und es erfolgt kein Schufaeintrag.</p>', '2023-01-15 10:12:17', '2023-01-15 10:14:37'),
+(2, 'Welche Voraussetzungen muss ich für einen Kredit erfüllen?', '<p>Die wesentlichen Voraussetzungen f&uuml;r den Kredit bei unserem Partner SIGMA Bank sind:</p>\r\n<p>&nbsp;</p>\r\n<ul>\r\n<li>Antragsteller muss deutscher Bundesb&uuml;rger sein</li>\r\n<li>Zudem vollj&auml;hrig bzw. zwischen 18 und 58 Jahren alt</li>\r\n<li>&Uuml;ber ein nachhaltiges Einkommen von mindestens 1.110 Euro verf&uuml;gen&nbsp;</li>\r\n<li>Ein Besch&auml;ftigungsverh&auml;ltnis muss seit mindestens 12 Monaten bestehen</li>\r\n</ul>', '2023-01-15 10:04:57', '2023-01-25 05:18:41'),
+(3, 'Was sind die Vorteile des SIGMA Kredits?', '<p><strong>Transparente Kreditangebote</strong></p>\r\n<p>Die SIGMA Kreditbank Ihnen drei klare Kreditvarianten. Die Konditionen sind klar verst&auml;ndlich und es gibt keine versteckten Kosten bei Ihrem Kredit.</p>\r\n<p>&nbsp;</p>\r\n<p><strong>Seri&ouml;ser Kredit ohne Schufa &ndash; ohne Vorkosten</strong></p>\r\n<p>Keine versteckten Kosten und Probleme f&uuml;r Sie bei der SIGMA Bank!</p>\r\n<p>&nbsp;</p>\r\n<p><strong>Kredit auch in schweren Zeiten</strong></p>\r\n<p>Die SIGMA Bank versteht Ihre individuelle Situation und erm&ouml;glicht Ihren Kunden daher auch in vielen F&auml;llen ein Darlehen, wenn andere schon abgelehnt haben! So wird Ihr Kredit ohne Schufa m&ouml;glich.</p>\r\n<p>&nbsp;</p>\r\n<p><strong>Bequem, sicher und schnell per Post und Email</strong></p>\r\n<p>&Uuml;berpr&uuml;fen Sie unser Angebot in aller Ruhe bei sich zuhause. Sie werden sehen: der SIGMA Kredit ist schnell, &uuml;bersichtlich und klar verst&auml;ndlich.</p>\r\n<p>&nbsp;</p>\r\n<p><strong>Schnelle und diskrete Abwicklung</strong></p>\r\n<p>Mit langj&auml;hriger Erfahrung als Kreditanbieter hat die SIGMA Bank ihre Arbeitsabl&auml;ufe so gut optimiert, dass die Kreditpr&uuml;fung extrem schnell abgeschlossen ist und Sie sofort per Email informiert werden &uuml;ber die n&auml;chsten Schritte. Dabei wird absolut diskret gehandelt. Weder die Schufa noch ihr Arbeitgeber erf&auml;hrt von dem Kredit.</p>\r\n<p>&nbsp;</p>\r\n<p>&nbsp;</p>\r\n<p>Ein weiterer Vorteil des SIGMA Kredits liegt darin, dass Sie sich die Kreditkonditionen ohne Zeitdruck anschauen k&ouml;nnen. Sie werden von niemandem beeinflusst und k&ouml;nnen frei entscheiden.</p>\r\n<p>&nbsp;</p>\r\n<p>Die SIGMA Kreditbank bietet Ihnen dar&uuml;ber hinaus sehr transparente Kreditangebote, eine schnelle und diskrete Abwicklung, als auch eine gute Beratung bei hoher Kundenzufriedenheit.</p>\r\n<p>&nbsp;</p>\r\n<p>Zus&auml;tzlich ist eine vorzeitige Kreditr&uuml;ckzahlung ohne zus&auml;tzliche Kosten m&ouml;glich und es erfolgt kein Schufaeintrag.</p>', '2023-01-15 10:12:17', '2023-01-25 00:46:19'),
 (4, 'Wie hoch ist die Erfolgsquote?', '<p>Wir w&uuml;rden l&uuml;gen, wenn wir sagen, dass jeder durch kommt. Im Schnitt werden rund 50% aller beantragten Kredite genehmigt.</p>', '2023-01-15 10:15:12', '2023-01-15 10:15:40'),
-(5, 'Warum sind die Zinsen höher als bei anderen Anbietern?', '<p>Mit niedrigen Zinsen versucht man Kunden zu fangen. Diese extrem niedrigen Verzinsungen erhalten meist nur Beamte oder Top-Verdiener. Die machen aber den geringsten Teil aus. Auch bei vermeintlich lukativen Niedrigzinsabietern wird im nachhinein ein h&ouml;herer Zins veranschlagt, nur eben mit Schufa und harten Restriktionen. Diese sind zumindest hier etwas augelockert.</p>', '2023-01-15 10:16:00', '2023-01-15 10:16:00'),
-(6, 'Ablauf des Kreditantrags', '<h4>Den SIGMA Kredit zu beantragen ist sehr einfach.</h4>\r\n<h4>&nbsp;</h4>\r\n<h4><strong>Beantragung &uuml;ber das SIGMA PDF</strong></h4>\r\n<h4>&nbsp;</h4>\r\n<p>1. Rufen Sie das PDF-Formular auf dieser Seite auf</p>\r\n<p>2. F&uuml;llen Sie den Kreditantrag aus und reichen Sie in mit den notwendigen Dokumenten ein.</p>\r\n<p>3. Ihr Kreditantrag wird gepr&uuml;ft und die SIGMA Bank garantiert Ihnen eine schnelle Abwicklung und sendet Ihnen einen Kreditvertrag zu.</p>\r\n<p>4. Sie unterschreiben den Kreditvertrag und Senden Ihn an die SIGMA Bank zur&uuml;ck.</p>\r\n<p>5. Sie bekommen Ihr Geld schnellstm&ouml;glich ausbezahlt.</p>', '2023-01-15 10:16:51', '2023-01-15 10:16:51');
+(5, 'Warum sind die Zinsen höher als bei anderen Anbietern?', '<p>Mit niedrigen Zinsen versucht man Kunden zu fangen. Diese extrem niedrigen Verzinsungen erhalten meist nur Beamte oder Top-Verdiener. Die machen aber den geringsten Teil aus. Auch bei vermeintlich lukativen Niedrigzinsabietern wird im nachhinein ein h&ouml;herer Zins veranschlagt, nur eben mit Schufa und harten Restriktionen. Diese sind zumindest hier etwas aufgelockert.</p>', '2023-01-15 10:16:00', '2023-01-25 05:19:35'),
+(8, 'Ablauf des Kreditantrags', '<p>Den SIGMA Kredit zu beantragen ist sehr einfach.</p>\r\n<p><strong>Beantragung &uuml;ber das SIGMA Formular</strong></p>\r\n<ol>\r\n<li>Rufen Sie das Formular auf dieser Seite auf</li>\r\n<li>F&uuml;llen Sie den Kreditantrag aus und reichen Sie in mit den notwendigen Dokumenten ein.</li>\r\n<li>Ihr Kreditantrag wird gepr&uuml;ft und die SIGMA Bank garantiert Ihnen eine schnelle Abwicklung und sendet Ihnen einen Kreditvertrag zu.</li>\r\n<li>Sie unterschreiben den Kreditvertrag und Senden Ihn an die SIGMA Bank zur&uuml;ck.</li>\r\n<li>Sie bekommen nach positivem Bescheid Ihr Geld schnellstm&ouml;glich ausbezahlt.</li>\r\n</ol>\r\n<p><strong>Online Beantragung&nbsp;</strong></p>\r\n<ol>\r\n<li>Rufen Sie &uuml;ber den Button \"Sigma Kredit online beantragen\" die offizielle Whitelabel-Sigma Seite auf.</li>\r\n<li>Geben Sie online bequem alle Daten ein.</li>\r\n<li>Sie bekommen nach positivem Bescheid Ihr Geld schnellstm&ouml;glich ausbezahlt.</li>\r\n</ol>', '2023-01-25 05:21:58', '2023-01-25 05:21:58');
 
 -- --------------------------------------------------------
 
@@ -644,10 +644,10 @@ CREATE TABLE `services` (
 --
 
 INSERT INTO `services` (`id`, `txt_bold`, `txt_des`, `created_at`, `updated_at`) VALUES
-(1, 'Nur als PDF beantragbar', '(Vorsicht vor unseriösen Vergleichsportalen, die Kreditangebote nur nach ihrer Provision aussteuern! (mehr Infos)', '2023-01-23 23:49:43', '2023-01-23 23:49:43'),
-(2, 'Nur als PDF beantragbar 2', '(Vorsicht vor unseriösen Vergleichsportalen, die Kreditangebote nur nach ihrer Provision aussteuern! (mehr Infos)', '2023-01-23 23:49:43', '2023-01-23 23:49:43'),
-(3, 'Nur als PDF beantragbar', '(Vorsicht vor unseriösen Vergleichsportalen, die Kreditangebote nur nach ihrer Provision aussteuern! (mehr Infos)', '2023-01-23 23:49:43', '2023-01-23 23:49:43'),
-(4, 'Nur als PDF beantragbar 2', '(Vorsicht vor unseriösen Vergleichsportalen, die Kreditangebote nur nach ihrer Provision aussteuern! (mehr Infos)', '2023-01-23 23:49:43', '2023-01-23 23:49:43');
+(1, 'Als PDF und online beantragbar', '(Vorsicht vor unseriösen Vergleichsportalen, die Kreditangebote nur nach ihrer Provision aussteuern!', '2023-01-23 23:49:43', '2023-01-25 05:12:49'),
+(2, 'Direkte Beantragung verspricht attraktive Zinsen²', 'und eine schnelle Bearbeitung der Anfrage', '2023-01-23 23:49:43', '2023-01-25 05:13:25'),
+(3, 'Ca. 14 Tage', 'vom Antrag bis zur Auszahlung', '2023-01-23 23:49:43', '2023-01-25 05:14:06'),
+(4, 'Trotz negativer Schufa', 'Finanzierungszusage auch schon tausendfach erteilt trotz negativem Schufaeintrag!', '2023-01-23 23:49:43', '2023-01-25 05:14:33');
 
 -- --------------------------------------------------------
 
@@ -659,10 +659,10 @@ CREATE TABLE `settings` (
   `id` int(10) UNSIGNED NOT NULL,
   `key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `display_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `value` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `details` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `value` text COLLATE utf8mb4_unicode_ci,
+  `details` text COLLATE utf8mb4_unicode_ci,
   `type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `order` int(11) NOT NULL DEFAULT 1,
+  `order` int(11) NOT NULL DEFAULT '1',
   `group` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -671,41 +671,41 @@ CREATE TABLE `settings` (
 --
 
 INSERT INTO `settings` (`id`, `key`, `display_name`, `value`, `details`, `type`, `order`, `group`) VALUES
-(1, 'header.image_header', 'website header image', 'settings\\January2023\\XDfe8rxOtqXJksOO1sdn.png', NULL, 'image', 1, 'header'),
+(1, 'header.image_header', 'website header image', 'settings/January2023/SrSdQBxCuXvnRfYVeBxu.png', NULL, 'image', 1, 'header'),
 (2, 'seo-page.description', 'Site Description', 'So kommen Sie schnell zu einem Schweizer Kredit.', '', 'text', 91, 'seo page'),
-(3, 'pdf.file_pdf_home', 'file pdf 1', '[{\"download_link\":\"settings\\\\January2023\\\\dI6a0BqRVdWTHzApRjav.pdf\",\"original_name\":\"demo_pdf.pdf\"}]', NULL, 'file', 2, 'pdf'),
+(3, 'pdf.file_pdf_home', 'file pdf 1', '[{\"download_link\":\"settings\\/January2023\\/Z3d4VxLJJ361YC580gaz.pdf\",\"original_name\":\"demo_pdf.pdf\"}]', NULL, 'file', 2, 'pdf'),
 (13, 'seo-page.image_share', 'The image displayed when sharing the link', 'settings\\January2023\\6amHdvb0DpgWxqK1dFso.png', NULL, 'image', 92, 'seo page'),
 (24, 'pdf.img_pdf_home', 'image pdf', 'settings\\January2023\\lBLtMUrxuc1DA4rBuLdn.png', NULL, 'image', 106, 'pdf'),
 (26, 'about.Photo_of_the_expert', 'Photo of the expert', 'settings\\January2023\\TIMMmQTehfZPRxwvoye6.png', NULL, 'image', 110, 'about'),
 (27, 'seo-page.keyword', 'page search keyword', NULL, NULL, 'text', 93, 'seo page'),
 (28, 'seo-page.title', 'Site Title', 'Echter Schweizer Kredit mit 5 Tagen Zusage', '', 'text', 94, 'seo page'),
-(29, 'seo-page.favicon_16', 'favicon (16px)', 'settings\\January2023\\A4ZRLaKQ5URA0I7ZoxmK.png', NULL, 'image', 95, 'seo page'),
-(30, 'seo-page.favicon_32', 'favicon (32px)', 'settings\\January2023\\4Ufg6owFN4E0dl7Ays7R.png', NULL, 'image', 96, 'seo page'),
-(31, 'seo-page.favicon_96', 'favicon (96px)', 'settings\\January2023\\nXxaYadFBc391hSw57O1.png', NULL, 'image', 97, 'seo page'),
-(32, 'seo-page.favicon_128', 'favicon (128px)', 'settings\\January2023\\pK8tNdvb7R5R8Fx7BS85.png', NULL, 'image', 98, 'seo page'),
+(29, 'seo-page.favicon_16', 'favicon (16px)', '', NULL, 'image', 95, 'seo page'),
+(30, 'seo-page.favicon_32', 'favicon (32px)', '', NULL, 'image', 96, 'seo page'),
+(31, 'seo-page.favicon_96', 'favicon (96px)', '', NULL, 'image', 97, 'seo page'),
+(32, 'seo-page.favicon_128', 'favicon (128px)', '', NULL, 'image', 98, 'seo page'),
 (33, 'site.h1', 'H1', 'Echter Schweizer Kredit mit nur 1 Klick!', NULL, 'text', 2, 'Site'),
-(34, 'site.description_h1', 'description h1', 'Mit diesem Schweizer Kredit haben Verbraucher die besten Erfolgs-Chancen!', NULL, 'text', 3, 'Site'),
-(35, 'site.lb_see_more', 'label url see more', '(mehr zu unseren Studienzahlen..)', NULL, 'text', 4, 'Site'),
-(36, 'site.url_see_more', 'url see more', '#', NULL, 'text', 5, 'Site'),
+(34, 'site.description_h1', 'description h1', 'Mit diesem Schweizer Kredit haben Verbraucher die besten Erfolgs-Chancen.', NULL, 'text', 3, 'Site'),
+(35, 'site.lb_see_more', 'label url see more', NULL, NULL, 'text', 4, 'Site'),
+(36, 'site.url_see_more', 'url see more', '# url 1', NULL, 'text', 5, 'Site'),
 (37, 'admin.bg_image', 'Admin Background Image', '', '', 'image', 100, 'Admin'),
 (38, 'admin.title', 'Admin Title', 'Voyager', '', 'text', 101, 'Admin'),
 (39, 'admin.description', 'Admin Description', 'Welcome to Voyager. The Missing Admin for Laravel', '', 'text', 102, 'Admin'),
 (40, 'admin.loader', 'Admin Loader', '', '', 'image', 103, 'Admin'),
 (41, 'admin.icon_image', 'Admin Icon Image', '', '', 'image', 104, 'Admin'),
-(112, 'pdf.lb_btn_1', 'lable button 1', 'Kreditgesuch Antrag (PDF)', NULL, 'text', 1, 'pdf'),
-(113, 'pdf.file_pdf_home_2', 'file pdf 2', '[{\"download_link\":\"settings\\\\January2023\\\\9LA86dCXESgvisv1jNZ1.pdf\",\"original_name\":\"demo_pdf.pdf\"}]', NULL, 'file', 105, 'pdf'),
-(114, 'pdf.lb_btn_2', 'lable button 2', 'Kreditgesuch Antrag (PDF) 2', NULL, 'text', 10, 'pdf'),
-(115, 'site.title_2', 'h2', '+++2.405 genehmigte Anträge (Stand 01/23), täglich werden es mehr+++', NULL, 'text', 12, 'Site'),
-(116, 'site.lb_btn_3', 'lable button 3', '+++neu: Online Antrag+++ (ANCHOR)', NULL, 'text', 107, 'Site'),
-(117, 'site.url_btn_3', 'url button 3', '#', NULL, 'text', 108, 'Site'),
+(112, 'pdf.lb_btn_1', 'lable button 1', 'Kreditantrag (PDF)', NULL, 'text', 1, 'pdf'),
+(113, 'pdf.file_pdf_home_2', 'file pdf 2', '', NULL, 'file', 105, 'pdf'),
+(114, 'pdf.lb_btn_2', 'lable button 2', 'SIGMA Kredit Online beantragen', NULL, 'text', 10, 'pdf'),
+(115, 'site.title_2', 'h2', '+++2.405 genehmigte Anträge (Stand 01/23) über die dt. Kreditberatung, täglich werden es mehr+++', NULL, 'text', 12, 'Site'),
+(116, 'site.lb_btn_3', 'lable button 3', '+++neu: Online Antrag+++', NULL, 'text', 107, 'Site'),
+(117, 'site.url_btn_3', 'url button 3', 'https://www.maxda.de/sigma-schufafrei/?a_aid=8882&a_bid=4bdf88bd', NULL, 'text', 108, 'Site'),
 (118, 'about.about_title', 'title', 'Unsere Experte Moritz betreut Verbraucher', NULL, 'text', 11, 'about'),
-(120, 'about.des_about', 'description', 'Dipl.- Oec. Moritz Schmidt ist seit Jahren in der Verbraucherschutzberatung aktiv und hilft ehrenamtlich vorallem in schwierigen Fällen bei der Kreditfindung. Mit der deutschen Kreditberatung stellen wir nun dieses notwendige Insider-Wissen fernab von gängigen Vergleichsportalen zur Verfügung. Um auch Sie seriös und ehrlich zu beraten.', NULL, 'text_area', 109, 'about'),
-(121, 'about.about_title_2', 'title 2', 'Das sagen echte Personen, denen wir zum positiven Antrag helfen konnten.', NULL, 'text', 111, 'about'),
-(122, 'about.des_about_2', 'description 2', 'Ein sog. Schweizer Kredit ist ein Kredit welcher Schufa-neutral ist, d. h. es erfolgt keine Kommunikation mit der Schufa.\r\n<br/>\r\n<br/>\r\nAuch unser Partner Bon-Kredit verhilft Ihnen zu Ihrem gewünschten Darlehen. Auch wenn andere schon abgesagt haben. Mehr als 45 Jahre Erfahrung und zahlreiche Kontakte zu Banken im In- und Ausland machen das möglich. Kredite ab 2,79%¹ – garantiert ohne Vorkosten. Zusätzlich vermittelt Bon-Kredit auch Darlehen der SIGMA Kreditbank. Sie können Ihren Kredit also auch direkt online beantragen!', NULL, 'text_area', 112, 'about'),
+(120, 'about.des_about', 'description', 'Dipl.- Oec. Moritz ist seit Jahren in der Verbraucherschutzberatung aktiv und hilft ehrenamtlich vorallem in schwierigen Fällen bei der Kreditfindung. Mit der deutschen Kreditberatung stellen wir nun dieses notwendige Insider-Wissen fernab von gängigen Vergleichsportalen zur Verfügung. Um auch Sie seriös und ehrlich zu beraten.', NULL, 'text_area', 109, 'about'),
+(121, 'about.about_title_2', 'title 2', 'Alles zum schufafreien Kredit bei der Sigma Bank', NULL, 'text', 111, 'about'),
+(122, 'about.des_about_2', 'description 2', 'Beantragen Sie jetzt Ihren schufafreien Kredit, um trotz negativem Schufa-Eintrag Ihr Geld zu erhalten. Dies ist bei unseren seriösen Partnern SIGMA Kreditbank und Bon-Kredit einfach möglich. Auf dieser Seite finden Sie kostenlos alle Informationen und Formulare die Sie benötigen, um Ihren <b>“Schweizer Kredit ohne Schufa”</b> zu beantragen!\r\n<br/><br/>\r\n\r\nUnsere “Schweizer Kreditanbieter” ohne Schufa machen eine Finanzierungszusage trotz negativer Schufa für Sie möglich. Es gibt tausende von Personen die es auf diesem Weg geschafft haben den gewünschten Kredit zu bekommen. Wenn auch Sie Ihren Kredit erhalten wollen, sind Sie hier genau richtig. Auch wenn andere Banken Ihren Kreditantrag bereits abgelehnt haben!\r\n<br><br>\r\n<b>Repräsentatives Beispiel SIGMA-Kredit:</b><br>\r\n Sollzinssatz 10,20% fest für die gesamte Laufzeit, Effektiver Jahreszins: 10,69%, Nettokreditbetrag: 7.500 Euro, Vertragslaufzeit: 40 Monate, Monatliche Rate: 223,85 €, Gesamter Zinsaufwand: 1.452,00 €, Gesamtrückzahlung: 8.954,00 €\r\n<br><br>\r\nUnser Partner, die SIGMA Kreditbank mit Sitz in Liechtenstein, bietet Ihnen eine schufafreie Finanzierung. Es werden garantiert keine Schufa Auskünfte eingeholt. Die SIGMA Kreditbank bietet damit als eine der wenigen Banken den sogenannten “Schweizer Kredit” an. Sie können trotz negativer Schufa finanzieren – sofern die Bonität für die Bank in Ordnung ist. Denn ein negativer Eintrag bei der Schufa bedeutet natürlich nicht zwangsläufig, dass sich jemand nicht in der Lage befindet, einen Kredit zurückzahlen. Wer über ein nachhaltiges Einkommen verfügt und nicht zu hoch verschuldet ist, kann den “Schweizer Kredit” der SIGMA Bank beantragen. In erster Linie kommt es auf das Einkommen an, schließlich handelt es sich hierbei um den Garant für eine sichere Rückzahlung der Kreditsumme.<br>\r\n\r\nDer “Schweizer Kredit” ohne Schufa wird direkt über das Formular gestellt und bei der Bank eingereicht. Eine direkte Kreditbeantragung verspricht attraktive Kreditzinsen² und eine schnelle Bearbeitung der Anfrage (alle Informationen zu den Konditionen finden Sie auf Ihrem Kreditantrag). So kommen Sie in 2 einfachen Schritten zu Ihrem “Schweizer Kredit” ohne Schufa der SIGMA Bank.', NULL, 'text_area', 112, 'about'),
 (123, 'about.note_title', 'note title', 'Hinweis: Wir sind kein Kreditvermittler', NULL, 'text', 113, 'about'),
 (124, 'about.des_about_3', 'description below note', '² SIGMA Kreditbank Konditionen: Sollzinssatz jährlich 10,19 % bei EUR 3.500,00 sowie 10,21% bei EUR 5.000,00 und 10,20% EUR 7.500,00. Effektiver Jahreszins 10,68 % bei EUR 3.500,00 sowie 10,70% bei EUR 5.000,00 und 10,69% EUR 7.500,00.', NULL, 'text_area', 114, 'about'),
-(125, 'about.about_title_3', 'title 3', 'title', NULL, 'text', 115, 'about'),
-(126, 'about.des_about_4', 'description 3', 'description', NULL, 'text_area', 116, 'about');
+(125, 'about.about_title_3', 'title 3', NULL, NULL, 'text', 115, 'about'),
+(126, 'about.des_about_4', 'description 3', 'Impressum/ Datenschutzerklärung', NULL, 'text_area', 116, 'about');
 
 -- --------------------------------------------------------
 
@@ -720,17 +720,18 @@ CREATE TABLE `tables` (
   `column_three` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `column_four` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `position` int(11) DEFAULT '2'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `tables`
 --
 
-INSERT INTO `tables` (`id`, `column_one`, `column_two`, `column_three`, `column_four`, `created_at`, `updated_at`) VALUES
-(1, 'Gesambtetrag', '35.000,00', '35.000,00', '35.000,00', '2023-01-15 10:31:38', '2023-01-15 10:31:38'),
-(2, 'Gesambtetrag', '35.000,00', '35.000,00', '35.000,00', '2023-01-15 10:31:38', '2023-01-15 10:31:38'),
-(3, 'Tile', 'price 1', 'price 2', 'price 3', '2023-01-15 10:31:38', '2023-01-15 10:35:49');
+INSERT INTO `tables` (`id`, `column_one`, `column_two`, `column_three`, `column_four`, `created_at`, `updated_at`, `position`) VALUES
+(1, 'Gesamtbetrag', '4.178,00 €', '5.970,00 €', '8.954,00 €', '2023-01-15 10:31:38', '2023-01-25 05:24:08', 3),
+(2, 'Zinsen für die vereinbarte Laufzeit', '678,00 €', '970,00 €', '1.452,00 €', '2023-01-15 10:31:38', '2023-01-25 05:24:56', 2),
+(9999, 'Nettodarlehensbetrag', '3.500,00 €', '5.000,00 €', '7.500,00 €', '2023-01-15 10:31:38', '2023-01-25 05:27:05', 1);
 
 -- --------------------------------------------------------
 
@@ -800,7 +801,7 @@ CREATE TABLE `users` (
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `settings` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `settings` text COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -995,7 +996,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT cho bảng `data_rows`
 --
 ALTER TABLE `data_rows`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 
 --
 -- AUTO_INCREMENT cho bảng `data_types`
@@ -1061,7 +1062,7 @@ ALTER TABLE `posts`
 -- AUTO_INCREMENT cho bảng `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT cho bảng `roles`
@@ -1073,7 +1074,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT cho bảng `services`
 --
 ALTER TABLE `services`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT cho bảng `settings`
@@ -1085,7 +1086,7 @@ ALTER TABLE `settings`
 -- AUTO_INCREMENT cho bảng `tables`
 --
 ALTER TABLE `tables`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT cho bảng `translations`
